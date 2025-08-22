@@ -1,0 +1,22 @@
+<section>
+  <div class="mt-2 gap-2">
+    <p>There are {{ recipes.length }} recipes available.</p>
+    <button
+      class="border-2 border-blue-500 m-2 px-3 py-1 pb-1.5 bg-blue-100 text-black text-sm rounded"
+      (click)="getPreviousRecipe()">
+      Previous
+    </button>
+    <button
+      class="m-2 px-3 py-1 bg-blue-600 text-white rounded"
+      (click)="getNextRecipe()">
+      Next
+    </button>
+  </div>
+</section>
+<section>
+  @if(selectedRecipe != null) {
+  <app-recipe [recipe]="selectedRecipe"></app-recipe>
+  } @else {
+  <p>No recipe selected.</p>
+  }
+</section>
