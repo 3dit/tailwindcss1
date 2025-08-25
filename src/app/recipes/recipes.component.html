@@ -1,4 +1,13 @@
 <section>
+  
+  <div (clicked)="doDirectiveButtonClick()" appMountButton></div>
+
+  <div *appList="let animal of testDataList" appListHeader="Animals">
+    <p appHighlight>{{ animal }}</p>
+  </div>
+
+  <p appHighlight appHighlight>This should hilight</p>
+
   <div class="mt-2 gap-2">
     <p>There are {{ recipes.length }} recipes available.</p>
     <button
@@ -11,7 +20,7 @@
       (click)="getNextRecipe()">
       Next
     </button>
-  </div>
+  </div> 
 </section>
 <section>
   @if(selectedRecipe != null) {

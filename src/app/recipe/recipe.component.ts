@@ -6,11 +6,12 @@ import {
   SimpleChanges,
 } from "@angular/core";
 import { RecipeData } from "../recipes.service";
+import { TestPipe } from "../test.pipe.";
 
 @Component({
   selector: "app-recipe",
   standalone: true,
-  imports: [],
+  imports: [TestPipe],
   templateUrl: "./recipe.component.html",
   styleUrl: "./recipe.component.css",
 })

@@ -11,7 +11,7 @@
       @for (meta of metaArray; track meta.label) {
       <div class="rounded-xl border border-slate-200 bg-white p-4">
         <dt class="text-xs uppercase tracking-wider text-slate-500">
-          {{ meta.label }}
+          {{ meta.label | testPipe}}
         </dt>
         <dd class="text-sm font-medium">{{ meta.value }}</dd>
       </div>
@@ -40,7 +40,7 @@
       <h2 id="steps-title" class="text-xl font-semibold">Steps</h2>
       <ol class="mt-4 list-decimal space-y-3 pl-6">
         @for(instruction of recipe?.steps; track $index) {
-        <li>{{ instruction }}</li>
+            <li>{{ instruction }}</li>
         }
       </ol>
     </section>
