@@ -5,7 +5,7 @@ import {
   signal,
   SimpleChanges,
 } from "@angular/core";
-import { RecipeData } from "../recipes.service";
+import { RecipeData } from "../services/recipes.service";
 import { TestPipe } from "../test.pipe.";
 
 @Component({
@@ -15,6 +15,7 @@ import { TestPipe } from "../test.pipe.";
   templateUrl: "./recipe.component.html",
   styleUrl: "./recipe.component.css",
 })
+
 export class RecipeComponent {
   metaArray: { label: string; value: string }[] = [];
   @Input() recipe: RecipeData | null = null;

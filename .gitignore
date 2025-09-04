@@ -66,3 +66,4 @@ Desktop.ini
 
 # Environment files
 .env*
+.angular/cache/** */
