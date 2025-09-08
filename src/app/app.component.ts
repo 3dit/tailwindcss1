@@ -10,5 +10,5 @@ import { RecipesComponent } from "./recipes/recipes.component";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'CodeSandbox';
+  title = 'Recipe App';
 }

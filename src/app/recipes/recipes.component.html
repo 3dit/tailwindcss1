@@ -6,25 +6,26 @@
     <p appHighlight>{{ animal }}</p>
   </div> -->
  
+  <!-- <section>
+    <button class="m-2 px-3 py-1 bg-blue-600 text-white rounded" (click)="writeNewRecipe()">TestCreate</button>
+  </section> -->
+  <div class="mt-4">
+    <button (click)="beginCreateRecipe()" class="m-2 px-3 py-1 bg-blue-600 text-white rounded">Create New Recipe</button>
+    <!-- <button (click)="uncreate()" class="m-2 px-3 py-1 bg-gray-600 text-white rounded">Cancel Create</button> -->
+  </div>
   <p appHighlight appHighlight>This should hilight</p>
   <div class="mt-2 gap-2">
     <p>There are {{ recipes.length }} recipes available.</p>
-    <button
-      class="m-2 px-3 py-1 bg-blue-600 text-white rounded"
-      (click)="getPreviousRecipe()">
-      Previous
-    </button>
-    <button
-      class="m-2 px-3 py-1 bg-blue-600 text-white rounded"
-      (click)="getNextRecipe()">
-      Next
-    </button>
+    <button class="m-2 px-3 py-1 bg-blue-600 text-white rounded" (click)="getPreviousRecipe()">Previous</button>
+    <button class="m-2 px-3 py-1 bg-blue-600 text-white rounded" (click)="getNextRecipe()">Next</button>
   </div> 
 </section>
 <section>
-  @if(selectedRecipe != null) {
-  <app-recipe [recipe]="selectedRecipe"></app-recipe>
-  } @else {
+@if(recipeDisplayMode() === RecipeDisplayModes.Create) {
+  <app-recipe [displayMode]="recipeDisplayMode" (OnNewRecipeCreated)="onRecipeCreated($event)"></app-recipe>
+} @else if(selectedRecipe != null) {
+  <app-recipe [recipe]="selectedRecipe" [displayMode]="recipeDisplayMode" (OnNewRecipeCreated)="onRecipeCreated($event)"></app-recipe>
+} @else {
   <p>No recipe selected.</p>
-  }
+}
 </section>
