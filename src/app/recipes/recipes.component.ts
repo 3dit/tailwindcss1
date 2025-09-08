@@ -1,4 +1,4 @@
-import { Component, Injectable, signal } from "@angular/core";
+import { Component, effect, Injectable, signal } from "@angular/core";
 import { forkJoin } from "rxjs";
 import { RecipesService, RecipeData } from "../services/recipes.service";
 import { RecipeComponent } from "../recipe/recipe.component";
@@ -29,7 +29,7 @@ export class RecipesComponent {
     constructor(
         private recipesService: RecipesService,
         private recipesApiService: RecipesApiService
-    ) {}
+    ) { }
 
     getNextRecipe() {
         this.recipeIndex++;
@@ -60,6 +60,15 @@ export class RecipesComponent {
     beginCreateRecipe() {
         this.recipeDisplayMode.set(RecipeDisplayModes.Create);
         this.selectedRecipe = null;
+    }
+
+    editRecipe() {
+        this.recipeDisplayMode.set(
+            this.recipeDisplayMode() === RecipeDisplayModes.Edit
+                ? RecipeDisplayModes.View
+                : RecipeDisplayModes.Edit
+        );
+        console.log(`Edit Recipes with selectedRecipe:`, this.selectedRecipe);
     }
 
     uncreate() {

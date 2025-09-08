@@ -1,6 +1,7 @@
 import {
     Component,
     computed,
+    effect,
     EventEmitter,
     Input,
     Output,
@@ -47,6 +48,29 @@ export class RecipeComponent {
             cook: [""],
             serves: [""],
         });
+
+        //effect is something that is described to run only when a signal within it changes.
+        //i think this might work by effect running initially, and then tracking which signals are accessed
+        //so when one of those signals changes, it knows to run the effect again.
+        //this is useful for reacting to changes in signals without needing to use ngOnChanges or other lifecycle hooks.
+        //it can help keep code more declarative and reactive.
+        effect(() => {
+            console.log("EFFECT!");
+            const mode = this.displayMode();
+            if (mode === RecipeDisplayModes.Edit) {
+                this.recipeForm.enable();
+                //patch values which seems to be a way to get model values into a form
+                this.recipeForm.patchValue({
+                    title: this.recipe!.title,
+                    description: this.recipe!.description,
+                    //prep: this.recipe!.meta["prep"],
+                    //cook: this.recipe!.meta["cook"],
+                    //serves: this.recipe!.meta["serves"],
+                });
+            } else {
+                //this.recipeForm.disable();
+            }
+        });
     }
 
     ngOnInit() {
@@ -62,7 +86,10 @@ export class RecipeComponent {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes["recipe"]) {
+        if (
+            changes["recipe"] &&
+            this.displayMode() === RecipeDisplayModes.View
+        ) {
             this.metaArray = [];
             for (const key in changes["recipe"].currentValue.meta) {
                 this.metaArray.push({
@@ -70,7 +97,7 @@ export class RecipeComponent {
                     value: changes["recipe"].currentValue.meta[key],
                 });
             }
-        }
+        } 
     }
 
     onSubmit() {
