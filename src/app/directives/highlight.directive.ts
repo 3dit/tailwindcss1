@@ -10,10 +10,14 @@ export class HighlightDirective {
 
   @HostListener('mouseenter') onEnter() {
     console.log('Highlight Mouse Enter');
-    this.r.setStyle(this.el.nativeElement, 'background', 'yellow');
+    this.r.setStyle(this.el.nativeElement, 'color', '#002366');
+    this.r.setStyle(this.el.nativeElement, 'font-weight', 'bold');
+    this.r.setStyle(this.el.nativeElement, 'cursor', 'pointer');
   }
   @HostListener('mouseleave') onLeave() {
-    this.r.removeStyle(this.el.nativeElement, 'background');
+    this.r.removeStyle(this.el.nativeElement, 'color');
+    this.r.removeStyle(this.el.nativeElement, 'font-weight');
+    this.r.removeStyle(this.el.nativeElement, 'cursor');
   }
   @HostListener('click') onClick() {
     console.log('Highlight Click');

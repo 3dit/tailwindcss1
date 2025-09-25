@@ -1,8 +1,7 @@
-import { Component, effect, Injectable, signal } from "@angular/core";
+import { Component, effect, Injectable, signal, WritableSignal } from "@angular/core";
 import { forkJoin } from "rxjs";
 import { RecipesService, RecipeData } from "../services/recipes.service";
 import { RecipeComponent } from "../recipe/recipe.component";
-import { HighlightDirective } from "../directives/highlight.directive";
 import { RecipesApiService } from "../services/recipes-api.service";
 
 export enum RecipeDisplayModes {
@@ -13,7 +12,7 @@ export enum RecipeDisplayModes {
 @Component({
     selector: "app-recipes",
     standalone: true,
-    imports: [RecipeComponent, HighlightDirective],
+    imports: [RecipeComponent],
     templateUrl: "./recipes.component.html",
     styleUrl: "./recipes.component.css",
 })
@@ -22,14 +21,27 @@ export class RecipesComponent {
     recipeIndex: number = 1;
     recipes: RecipeData[] = [];
     selectedRecipe: RecipeData | null = null;
-    recipeDisplayMode = signal<RecipeDisplayModes>(RecipeDisplayModes.View);
+    recipeDisplayMode = signal(RecipeDisplayModes.View);
 
     testDataList: string[] = ["Cat", "Dog", "Wolf"];
+
+    theSignal: WritableSignal<string> | null = null;
 
     constructor(
         private recipesService: RecipesService,
         private recipesApiService: RecipesApiService
-    ) { }
+    ) { 
+      this.theSignal = this.recipesApiService.getSomeStateSignal();
+    }
+
+    stateList = ["State 1", "State 2", "change state"];
+    stateIndex = 0;
+    performTest() {
+      this.stateIndex = (this.stateIndex + 1) % this.stateList.length;
+      //following should fire off the effect in RecipesApiService
+      console.log('setting theSignal to ', this.stateList[this.stateIndex]);
+      this.theSignal && this.theSignal.set(this.stateList[this.stateIndex]);
+    }
 
     getNextRecipe() {
         this.recipeIndex++;

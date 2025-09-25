@@ -1,0 +1,6 @@
+<div class="modal-backdrop" *ngIf="show">
+  <div class="modal-panel" (keyup.escape)="onClose()">
+    <button class="close-btn" (click)="onClose()">×</button>
+    <ng-content></ng-content>
+  </div>
+</div> 

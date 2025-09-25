@@ -1,0 +1,19 @@
+<div>
+    <h3>Ingredients</h3>
+    <ul>
+        @for (ingredient of ingredients; track $index) {
+            <li appHighlight (click)="editIngredient($index, ingredient)">
+                {{ ingredient }} '['{{ $index }}']'
+            </li>
+        }
+    </ul>
+    <input
+        #newIngredient
+        type="text"
+        placeholder="Add new ingredient"
+        (keyup.enter)="addIngredient(newIngredient.value); newIngredient.value = ''"
+        (keyup.escape)="newIngredient.value = ''; discardChanges.emit()"
+    />
+    <!-- <button (click)="addIngredient(newIngredient.value); newIngredient.value = ''">Add</button> -->
+    <!-- <button (click)="saveIngredients(newIngredient.value)">Save Ingredients</button> -->
+</div>

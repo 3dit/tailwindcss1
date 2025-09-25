@@ -13,11 +13,12 @@
     <button (click)="beginCreateRecipe()" class="m-2 px-3 py-1 bg-blue-600 text-white rounded">Create New Recipe</button>
     <button (click)="editRecipe()" class="m-2 px-3 py-1 bg-gray-600 text-white rounded">Edit</button>
   </div>
-  <p appHighlight appHighlight>This should hilight</p>
   <div class="mt-2 gap-2">
     <p>There are {{ recipes.length }} recipes available.</p>
     <button class="m-2 px-3 py-1 bg-blue-600 text-white rounded" (click)="getPreviousRecipe()">Previous</button>
     <button class="m-2 px-3 py-1 bg-blue-600 text-white rounded" (click)="getNextRecipe()">Next</button>
+    <button class="m-2 px-3 py-1 bg-blue-600 text-white rounded" (click)="performTest()">Test</button>
+    
   </div> 
 </section>
 <section>

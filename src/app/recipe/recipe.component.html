@@ -1,6 +1,6 @@
 <main class="mx-auto max-w-5xl px-4 py-10">
     <!-- Add Recipe Form -->
-    @if(displayMode() === RecipeDisplayModes.Create || displayMode() === RecipeDisplayModes.Edit) {
+    @if(isEditOrCreateMode()) {
     <div class="mb-8">
         <h2 class="text-2xl font-semibold mb-4">Add New Recipe</h2>
         <form
@@ -60,6 +60,15 @@
                     >
                 </div>
             </div>
+
+            <!-- <button (click)="showModal = true">Open Modal</button> -->
+
+            <app-ingredients-editor
+                (ingredientsChange)="editIngredientSelected($event)"
+                (discardChanges)="showModal = false"
+                [ingredients]="recipe?.ingredients ?? []"
+            ></app-ingredients-editor>
+
             <div class="grid grid-cols-3 gap-2">
                 <div>
                     <label class="block font-medium">Prep</label>
@@ -124,19 +133,21 @@
                     </div>
                 </div>
             </div>
-            <button
-                type="submit"
-                class="bg-blue-600 text-white px-4 py-2 rounded"
-            >
-                Add Recipe
-            </button>
+            <div>
+                <button
+                    type="submit"
+                    class="bg-blue-600 text-white px-4 py-2 rounded"
+                >
+                    Add Recipe
+                </button>
+            </div>
             <div *ngIf="saveSuccess" class="text-green-600">
                 Recipe saved successfully!
             </div>
             <div *ngIf="saveError" class="text-red-600">{{ saveError }}</div>
         </form>
     </div>
-    }  @else if (displayMode() === RecipeDisplayModes.View) {
+    } @else {
     <!-- Title & Notes -->
     <div>
         <header class="mb-8">
@@ -192,4 +203,15 @@
         </article>
     </div>
     }
+    <app-ingredient-modal [show]="showModal" (close)="showModal = false">
+        <input
+            #newIngredient
+            type="text"
+            placeholder="Ingredient Name"
+            class="border p-2 rounded w-full mb-4"
+            (keyup.enter)="commitIngredientEdit()"
+        />
+        <button (click)="addIngredient(newIngredient.value); newIngredient.value = '' ">Add</button>
+        <button (click)="saveIngredient()">Save Ingredients</button>
+    </app-ingredient-modal>
 </main>
